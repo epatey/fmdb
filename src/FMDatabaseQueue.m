@@ -20,6 +20,7 @@
 @implementation FMDatabaseQueue
 
 @synthesize path = _path;
+@synthesize allowMainThreadOp = _allowMainThreadOp;
 
 + (id)databaseQueueWithPath:(NSString*)aPath {
     
@@ -94,6 +95,14 @@
 
 - (void)inDatabase:(void (^)(FMDatabase *db))block {
     FMDBRetain(self);
+    
+    if (!self.allowMainThreadOp)
+#if false
+        NSAssert(dispatch_get_current_queue() != dispatch_get_main_queue(), @"Doing db operation on main thread.");
+#else
+    if (dispatch_get_current_queue() == dispatch_get_main_queue())
+        NSLog(@"Doing db operation on main thread. This will soon be fatal.");
+#endif
     
     dispatch_sync(_queue, ^() {
         

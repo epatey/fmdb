@@ -18,6 +18,7 @@
 }
 
 @property (retain) NSString *path;
+@property BOOL allowMainThreadOp;
 
 + (id)databaseQueueWithPath:(NSString*)aPath;
 - (id)initWithPath:(NSString*)aPath;
