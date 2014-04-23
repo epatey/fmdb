@@ -43,6 +43,16 @@
 
 - (long)longForQuery:(NSString*)query, ...;
 
+/** Return `long long int` value for query
+
+ @param query The SQL query to be performed.
+ @param ... A list of parameters that will be bound to the `?` placeholders in the SQL query.
+
+ @return `long long int` value.
+ */
+
+- (long long int)longLongIntForQuery:(NSString*)objs, ...;
+
 /** Return `BOOL` value for query
 
  @param query The SQL query to be performed.
