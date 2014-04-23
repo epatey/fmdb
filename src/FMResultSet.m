@@ -190,8 +190,11 @@
         return [n intValue];
     }
     
-    NSLog(@"Warning: I could not find the column named '%@'.", columnName);
-    
+#ifndef NS_BLOCK_ASSERTIONS
+    abort();
+    NSAssert1(false, @"Warning: I could not find the column named '%@'.", columnName);
+#endif
+
     return -1;
 }
 
